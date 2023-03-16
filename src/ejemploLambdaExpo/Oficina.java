@@ -24,11 +24,23 @@ public class Oficina {
 	public String toString() {
 		return "Oficina [lista=" + lista + "]";
 	}
-	
-	public boolean comprobarMayoriaEdad(Empleado e) {
-		int mayorEdad=60;
-		Predicate<Integer> mayoria = edad -> edad > mayorEdad;
+	public void cargarLista() {
+		lista.add(new Empleado("123A", "Alexander", 21, 152));
+		lista.add(new Empleado("456B", "Sebastián", 22, 96));
+		lista.add(new Empleado("789C", "Angel", 46, 123));
+		lista.add(new Empleado("321D", "Rafa", 69, 75));
+		lista.add(new Gerente("654E","Luismi",120,200,15));
+	}
+	public boolean comprobarMayoriaEdad(Empleado e, int mayorQue) {
+		Predicate<Integer> mayoria = edad -> edad > mayorQue;
 		return mayoria.test(e.getEdad());
+	}
+	public void imprimirFelicitacionEdad(boolean comprobarEdad) {
+		if(comprobarEdad) {
+			System.out.println("¡FELICIDADES, TE QUEDAN POCOS AÑOS PARA LA JUBILACIÓN!");
+		}else{
+			System.out.println("Todavía es demasiado pronto, ya llegará tu hora");
+		}
 	}
 	public void imprimirLista() {
 		lista.forEach(e -> System.out.println(e));
@@ -41,6 +53,9 @@ public class Oficina {
 	}
 	public void borrar(Empleado e) {
 		lista.remove(e);
+	}
+	public double calcularSueldoUnTrabajador(Empleado e, double precioHora) {
+		return e.calcularSueldo(precioHora);
 	}
 	//Hacer el find con stream
 	public Empleado findByDNIV1(String dniBusq) {
@@ -60,8 +75,24 @@ public class Oficina {
 	public void crear(Empleado e) {
 		lista.add(e);
 	}
-	//Hacer este metodo con stream
 	public double calcularMediaHorasTrab() {
-		return 0;
+		IEstadistica mediaHorTrab = lista -> {
+			double horasTrabTot=0.0;
+			for(Empleado e : lista) {
+				horasTrabTot+=e.getHorasTrabajadas();
+			}
+			return horasTrabTot/lista.size();
+		};
+		return mediaHorTrab.operacion(lista);
+	}
+	public double calcularGastosSueldos(double precioHora) {
+		IEstadistica gastoSueldo = lista -> {
+			double gastoTotal=0.0;
+			for(Empleado e : lista) {
+				gastoTotal+=calcularSueldoUnTrabajador(e, precioHora);
+			}
+			return gastoTotal;
+		};
+		return gastoSueldo.operacion(lista);
 	}
 }

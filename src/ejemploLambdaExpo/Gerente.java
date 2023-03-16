@@ -19,7 +19,7 @@ public class Gerente extends Empleado{
 
 	@Override
 	public String toString() {
-		return "Gerente [porcentExtra=" + porcentExtra + "]";
+		return super.toString()+"Gerente [porcentExtra=" + porcentExtra + "]";
 	}
 
 	@Override

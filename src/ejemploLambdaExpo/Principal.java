@@ -1,5 +1,7 @@
 package ejemploLambdaExpo;
 
+import java.util.ArrayList;
+
 import utilidades.Leer;
 
 public class Principal {
@@ -7,9 +9,16 @@ public class Principal {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int opcion=0;
+		Oficina of = new Oficina(new ArrayList<Empleado>());
+		String dniSelec;
+		int opcion=0, mayorA=60;
+		double horasTrabNuevas=0.0, precioHora=0.0;
 		
 		
+		System.out.println("----------------------------------------------");
+		System.out.println("BIENVENIDO AL PROGRAMA DE GESTIÓN DE EMPLEADOS");
+		System.out.println("----------------------------------------------");
+		of.cargarLista();
 		do {
 			System.out.println("1 - Mostrar empleados");
 			System.out.println("2 - Añadir empleado");
@@ -27,18 +36,37 @@ public class Principal {
 			opcion=Leer.datoInt();
 			switch(opcion) {
 				case 1:
+					of.imprimirLista();
 					break;
 				case 2:
 					break;
 				case 3:
+					System.out.println("Indique el dni del empleado que desea eliminar");
+					dniSelec=Leer.dato();
+					of.borrar(of.findByDNIV2(dniSelec));
 					break;
 				case 4:
+					System.out.println("Indique el dni del empleado que desea editar sus horas trabajadas");
+					dniSelec=Leer.dato();
+					System.out.println("Indique las nuevas horas trabajadas para incluirselas a dicho trabajador");
+					horasTrabNuevas=Leer.datoDouble();
+					of.editHoras(of.findByDNIV1(dniSelec), horasTrabNuevas);
 					break;
 				case 5:
+					System.out.println("Indique el dni del empleado para mostrar su sueldo");
+					dniSelec=Leer.dato();
+					System.out.println("Indique a cuánto se paga en euros la hora:");
+					precioHora=Leer.datoDouble();
+					System.out.printf("Sueldo: %.2f€\n", of.calcularSueldoUnTrabajador(of.findByDNIV1(dniSelec), precioHora));
 					break;
 				case 6:
+					System.out.println("Indique el dni del empleado para comprobar si es mayor a"+mayorA+" años");
+					dniSelec=Leer.dato();
+					of.imprimirFelicitacionEdad(of.comprobarMayoriaEdad(of.findByDNIV2(dniSelec), mayorA));
 					break;
 				case 7:
+					of.ordenarPorNombre();
+					of.imprimirLista();
 					break;
 				case 8:
 					break;
@@ -47,8 +75,13 @@ public class Principal {
 				case 10:
 					break;
 				case 11:
+					System.out.println("Indique a cuánto se paga en euros la hora:");
+					precioHora=Leer.datoDouble();
+					System.out.printf("La oficina gasta en sueldos %.2f€\n", of.calcularGastosSueldos(precioHora));
 					break;
 				case 12:
+					System.out.printf("La media de horas trabajadas de todos los empleados es %.2f\n", of.calcularMediaHorasTrab());
+					
 					break;
 				case 0:
 					System.out.println("Saliendo del programa");
