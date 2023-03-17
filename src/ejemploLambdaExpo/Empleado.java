@@ -14,6 +14,9 @@ public class Empleado {
 		this.edad = edad;
 		this.horasTrabajadas = horasTrabajadas;
 	}
+	public Empleado() {
+		
+	}
 	
 	public String getDni() {
 		return dni;
