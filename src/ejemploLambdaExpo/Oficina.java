@@ -50,14 +50,17 @@ public class Oficina {
 	}
 	//Método findV2 con el dni como criterio de busqueda (usando stream y lambda)
 	public Empleado findByDNIV2(String dniBusq) {
+		Predicate<Empleado> filtrar = e -> e.getDni().equalsIgnoreCase(dniBusq);
 		return lista.stream()
-			.filter(e -> e.getDni().equalsIgnoreCase(dniBusq))
+			//.filter(e -> e.getDni().equalsIgnoreCase(dniBusq))
+			.filter(filtrar)
 			.findFirst()
 			.get();
 	}
 	//Imprimir toda la lista
 	public void imprimirLista() {
-		lista.forEach(e -> System.out.println(e));
+		//lista.forEach(e -> System.out.println(e));
+		lista.forEach(System.out::println);
 	}
 	//Imprimir un empleado
 	public void imprimirUnEmpleado(Empleado e) {
