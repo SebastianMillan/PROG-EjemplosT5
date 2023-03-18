@@ -39,7 +39,7 @@ public class Oficina {
 	public void editHoras(Empleado e, double nuevasHorasTrab) {
 		e.setHorasTrabajadas(nuevasHorasTrab);
 	}
-	//Método findV1 con el dni como creiterio de busqueda
+	//Método findV1 con el dni como criterio de busqueda
 	public Empleado findByDNIV1(String dniBusq) {
 		for(Empleado e : lista) {
 			if(e.getDni().equalsIgnoreCase(dniBusq)) {

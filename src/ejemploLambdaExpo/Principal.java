@@ -11,13 +11,19 @@ public class Principal {
 
 		Oficina of = new Oficina(new ArrayList<Empleado>());
 		String dniSelec;
-		int opcion=0, mayorA=60, mayorEdadSelec=0;
-		double horasTrabNuevas=0.0, precioHora=0.0;
+		int opcion=0, mayorA=60, mayorEdadSelec=0, edad, opcion2;
+		double horasTrabNuevas=0.0, precioHora=0.0, porcExtra;
+		String nombre, dni;
+		double horasTrabajadas;
 		
 		
 		System.out.println("----------------------------------------------");
 		System.out.println("BIENVENIDO AL PROGRAMA DE GESTIÓN DE EMPLEADOS");
 		System.out.println("----------------------------------------------");
+		
+		System.out.println("Introduzca el porcentaje extra que cobra un gerente");
+		porcExtra=Leer.datoDouble();
+		
 		of.cargarLista();
 		do {
 			System.out.println("1 - Mostrar empleados");
@@ -38,6 +44,21 @@ public class Principal {
 					of.imprimirLista();
 					break;
 				case 2:
+					System.out.println("Introduzca el dni del empleado");
+					dni=Leer.dato();
+					System.out.println("Introduzca el nombre");
+					nombre=Leer.dato();
+					System.out.println("Indique la edad");
+					edad=Leer.datoInt();
+					System.out.println("Introduzca las horas trabajadas este mes");
+					horasTrabajadas=Leer.datoDouble();
+					System.out.println("Pulse 1 si es un Gerente o pulse otro número si es un empleado");
+					opcion2=Leer.datoInt();
+					if(opcion2==1) {
+						of.crear(new Empleado(dni, nombre, edad, horasTrabajadas));
+					}else {
+						of.crear(new Gerente(dni, nombre, edad, horasTrabajadas, porcExtra));
+					}
 					break;
 				case 3:
 					of.imprimirLista();
@@ -79,7 +100,8 @@ public class Principal {
 				case 10:
 					System.out.println("Indique a cuánto se paga en euros la hora:");
 					precioHora=Leer.datoDouble();
-					System.out.printf("La oficina gasta en sueldos %.2f€\n", of.calcularGastosSueldos(precioHora));					break;
+					System.out.printf("La oficina gasta en sueldos %.2f€\n", of.calcularGastosSueldos(precioHora));					
+					break;
 				case 11:
 					System.out.println("Indique a cuánto se paga en euros la hora:");
 					precioHora=Leer.datoDouble();
